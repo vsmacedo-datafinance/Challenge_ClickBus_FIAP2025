@@ -1,23 +1,28 @@
-# Challenge_ClickBus_FIAP_2025
-Challenge para empresa ClickBus FIAP 2025
+# Challenge ClickBus — FIAP 2025
 
- **Objetivo do Projeto**
-Desenvolver um modelo de aprendizado de máquina capaz de prever [insira aqui o seu target, ex: inadimplência/vendas] utilizando o algoritmo XGBoost, conhecido pela sua alta eficiência e precisão em dados estruturados.
+Projeto de ciência de dados desenvolvido para a ClickBus com dados reais 
+de ~1,7 milhões de transações (set/2013 – abr/2024).
 
- **Tecnologias e Ferramentas**
-* Linguagem: Python
+## Desafios resolvidos
+1. **Segmentação de clientes** — K-Means com 4 clusters (Ocasionais, Frequentes, Recorrentes e VIPs)
+2. **Previsão de compra em 30 dias** — XGBoost | ROC AUC: 0.89 | F1: 0.47
+3. **Previsão do próximo trecho** — LightGBM multiclasse | F1-macro: 0.54
 
-* Modelagem: XGBoost (Extreme Gradient Boosting)
+## Decisões técnicas relevantes
+- Divisão temporal dos dados (sem data leakage)
+- Variável COVID com datas oficiais OMS/OPAS (mar/2020 – mai/2023)
+- Delta de 5 dias para compras relacionadas a feriados
+- SMOTE para balanceamento de classes
 
-* Manipulação de Dados: Pandas e NumPy
+## Arquitetura
+| Camada | Arquivo | Conteúdo |
+|--------|---------|----------|
+| Bronze | `clickbus_bronze.parquet` | Dado bruto original |
+| Prata  | `clickbus_prata.parquet`  | Limpo, decodificado |
+| Ouro   | `clickbus_ouro.parquet`   | Features + modelo |
 
-* Preprocessamento: Scikit-Learn (LabelEncoder, Train-Test Split)
+## Stack
+Python · XGBoost · LightGBM · Scikit-Learn · SMOTE · Pandas
 
-* Métricas: Mean Squared Error (MSE) / Accuracy
-
- **Pipeline de Desenvolvimento**
-* Tratamento de Dados: Conversão de variáveis categóricas em numéricas utilizando LabelEncoder, garantindo que o modelo interprete corretamente as features qualitativas.
-
-* Arquitetura do Modelo: Implementação do Gradient Boosting, onde o modelo aprende de forma iterativa, corrigindo os erros das árvores anteriores para minimizar o resíduo final.
-
-* Avaliação: Teste do modelo em dados inéditos (X_test) para validar a capacidade de generalização e evitar o overfitting.
+## Equipe — FIAP
+Bruno Rosa · Danilo Alves · Fred Sousa · Luana Ferreira · Vinicius Macedo
