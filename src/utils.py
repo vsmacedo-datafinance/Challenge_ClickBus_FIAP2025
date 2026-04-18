@@ -39,3 +39,12 @@ def tratar_dados_clickbus(df):
         df['periodo_covid'] = df['data_compra'].apply(lambda x: 'pre-covid' if x < INICIO_COVID else ('durante-covid' if x <= FIM_COVID else 'pos-covid'))
 
     return df, {'cidades': map_cidades, 'empresas': map_empresas}
+
+def salvar_mapeamentos(mapeamentos: dict, caminho: str) -> None:
+    with open(caminho, 'w') as f:
+        json.dump(mapeamentos, f)
+    print(f"Mapeamentos salvos em {caminho}")
+
+def carregar_mapeamentos(caminho: str) -> dict:
+    with open(caminho) as f:
+        return json.load(f)
